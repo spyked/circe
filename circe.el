@@ -2606,6 +2606,18 @@ message separated by a space."
                          :target who
                          :body what))))))
 
+(defun circe-command-LIST (&optional args)
+  "List channels and their topics.
+
+ARGS may optionally contain a comma-separated list of CHANNELS
+and a SERVER. If CHANNELS is given, their topics are returned. If
+SERVER is given, the LIST command will be forwarded to SERVER."
+  (interactive)
+  (let* ((arg-list (split-string args))
+         (channels (car arg-list))
+         (server (cadr arg-list)))
+    (irc-send-LIST (circe-server-process) channels server)))
+
 (defun circe-command-NAMES (&optional channel)
   "List the names of the current channel or CHANNEL."
   (interactive)

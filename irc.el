@@ -402,6 +402,14 @@ If KEY is given, use it to join the password-protected channel."
       (irc-send-command conn "JOIN" channel key)
     (irc-send-command conn "JOIN" channel)))
 
+(defun irc-send-LIST (conn &optional channels server)
+  "Retrieve topics from CHANNELS on SERVER."
+  (if channels
+      (if server
+          (irc-send-command conn "LIST" channels server)
+          (irc-send-command conn "LIST" channels))
+    (irc-send-command conn "LIST")))
+
 (defun irc-send-NAMES (conn &optional channel)
   "Retrieve user names from the server, optionally limited to CHANNEL."
   (if channel
