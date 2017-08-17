@@ -2618,6 +2618,20 @@ SERVER is given, the LIST command will be forwarded to SERVER."
          (server (cadr arg-list)))
     (irc-send-LIST (circe-server-process) channels server)))
 
+(defun circe-command-MODE (whom &optional mode args)
+  "Set mode for channel or user.
+
+When MODE is not given, WHOM is assumed to be a string consisting
+of the mode, and, optionally, additional arguments"
+  (interactive "sSet mode for whom: \nsMode: \nsArgs: ")
+  (when (not mode)
+    (let ((arg-list (split-string whom)))
+      (setq whom (car arg-list))
+      (setq mode (cadr arg-list))
+      (setq args (caddr arg-list)))
+      (if (string= "" args) (setq args nil))
+      (irc-send-MODE (circe-server-process) whom mode args))))
+
 (defun circe-command-NAMES (&optional channel)
   "List the names of the current channel or CHANNEL."
   (interactive)

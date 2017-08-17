@@ -410,6 +410,11 @@ If KEY is given, use it to join the password-protected channel."
           (irc-send-command conn "LIST" channels))
     (irc-send-command conn "LIST")))
 
+(defun irc-send-MODE (conn whom mode &optional args)
+  "Set MODE for WHOM (channel or user)."
+  ;; XXX RFC 1459 also defines optional args for MODE.
+  (irc-send-command conn "MODE" whom mode))
+
 (defun irc-send-NAMES (conn &optional channel)
   "Retrieve user names from the server, optionally limited to CHANNEL."
   (if channel
